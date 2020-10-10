@@ -10,7 +10,13 @@ https://dribbble.com/shots/7112686-Weather-kit
 
 ## Installation:
 
-Clone this git, then `npm install && npm start`
+1. Clone this git
+
+2. add your API key to your `.env` file:
+
+     `REACT_APP_WEATHER_API_KEY=[your api key]`.
+
+3. `npm install && npm start`
 
 
 ## Available commands:
