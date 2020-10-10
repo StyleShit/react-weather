@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700&display=swap');
+
+*
+{
+    box-sizing: border-box;
+}
+
+body
+{
+    font-family: Poppins;
+    background-color: #EEE;
+    background-image: linear-gradient( 45deg, rgba( 127, 127, 213, 0.75 ), 
+                                              rgba( 134, 168, 231, 0.75 ), 
+                                              rgba( 145, 234, 228, 0.75 ) ),
+                      url( 'https://cdn.europosters.eu/image/750webp/55759.webp' );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.container
+{
+    color: #FFF;
+    border-radius: 1rem;
+    padding: 4rem;
+    width: auto;
+    box-shadow: 0 0 50px -10px rgba( 0,0,0,.3 );
+    position: relative;
+    overflow: hidden;
+    background-image: linear-gradient( 45deg, rgba( 127, 127, 213, 0.6 ), 
+                                              rgba( 134, 168, 231, 0.6 ), 
+                                              rgba( 145, 234, 228, 0.6 ) ),
+                      url( 'https://cdn.europosters.eu/image/750webp/55759.webp' );
+    background-size: cover;
+}
+
+.title
+{
+    font-size: 2.1em;
+    margin: 0 0 2rem 0;
+    text-shadow: 0 0 5px rgba( 255,255,255,.5 );
+    text-align: center;
+    color: #39f;
+}
+
+.toasts-container
+{
+    position: fixed;
+    z-index: 9999;
+    left: 10px;
+    top: 10px;
+    width: 400px;
+}

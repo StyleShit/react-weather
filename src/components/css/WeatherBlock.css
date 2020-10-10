@@ -1,0 +1,280 @@
+.weather-block
+{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100px;
+    border-radius: .7rem;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+    padding: 1rem;
+    color: #FFF;
+    text-shadow: 0 0 5px rgba( 0,0,0,.3 );
+    background-image: linear-gradient( 45deg, #2f80ed, #56ccf2 );
+    transition: .3s;
+    box-shadow: 0 0 30px 0px rgba( 0,0,0,.5 );
+}
+
+.weather-block:hover
+{
+    padding-left: 2.5rem;
+}
+
+.weather-block:hover .remove-weather-block
+{
+    opacity: 1;
+}
+
+.remove-weather-block
+{
+    position: absolute;
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    left: 10px;
+    top: 50%;
+    opacity: 0;
+    transform: translateY( -50% );
+    transition: .3s;
+}
+
+.remove-weather-block::after, .remove-weather-block::before
+{
+    content: '';
+    position: relative;
+    display: block;
+    left: 0;
+    width: 115%;
+    height: 1px;
+    top: 50%;
+    margin-top: -.5px;
+    transform-origin: center center;
+    background-color: rgba( 255,255,255,.5 );
+}
+
+.remove-weather-block::after
+{
+    transform: rotate( 45deg );
+}
+
+.remove-weather-block::before
+{
+    transform: rotate( -45deg );
+}
+
+.temperature
+{
+    font-size: 2.3rem;
+}
+
+.weather-block .temperature::after
+{
+    content: '°';
+}
+
+.weather-block .location-data
+{
+    flex-grow: 1;
+    padding: 0 1rem;
+}
+
+.weather-block .has-icon::before
+{
+    content: '';
+    display: inline-block;
+    background-size: 100%;
+    height: .8em;
+    width: .8em;
+    margin-right: 5px;
+}
+
+.weather-block .location-time::before
+{
+    background-image: url( 'https://img.icons8.com/ios/50/ffffff/wall-clock.png' );
+}
+
+.weather-block .location-name::before
+{
+    background-image: url( 'https://img.icons8.com/ios/50/ffffff/marker.png' );
+}
+
+.weather-block .humidity::before
+{
+    background-image: url( 'https://img.icons8.com/ios/50/ffffff/humidity.png' );
+}
+
+.weather-block .wind::before
+{
+    background-image: url( 'https://img.icons8.com/ios/50/ffffff/wind.png' );
+}
+
+sup
+{
+    font-size: .6em;
+}
+
+.weather-block .weather-icon
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.weather-block .weather-icon .weather-description
+{
+    font-weight: 300;
+    font-size: .8em;
+}
+
+.weather-block.day
+{
+    background-image: linear-gradient( 45deg, #2f80ed, #56ccf2 );
+    box-shadow: 0 0 30px 0px #2f80ed;
+}
+
+.weather-block.day::before
+{
+    content: '';
+    pointer-events: none;
+    display: block;
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    background-color: #fff601;
+    right: 15%;
+    transform: translateY( -50% );
+    animation: sunshine 3s ease-in-out infinite;
+}
+
+.weather-block.night
+{
+    background-image: linear-gradient( 45deg, #9733ee, #da22ff );
+    background-size: cover;
+    box-shadow: 0 0 30px 0px #9733ee;
+}
+
+.weather-block.night::before, .weather-block.night::after
+{
+    content: '';
+    pointer-events: none;
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: url( 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png' ), 
+                      url( 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png' ),
+                      url( 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png' );
+    background-size: 100%;
+    animation: stars 3s ease-in-out infinite;
+}
+
+.weather-block.night::after
+{
+    background-position: center;
+    background-size: 110%;
+    animation-delay: 1.5s;
+}
+
+.weather-block.snow
+{
+    background-image: linear-gradient( 45deg, #4bafc4, #32e0d8 );
+    box-shadow: 0 0 30px 0px #4bafc4;
+}
+
+.weather-block.snow::before
+{
+    content: '';
+    pointer-events: none;
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: url( 'https://freepngimg.com/download/winter_snow/4-2-white-snow-png.png' );
+    background-position: center;
+    background-size: 200%;
+    /* filter: blur( 1px ); */
+    animation: snow 3s ease-in-out infinite;
+}
+
+.weather-block .weather-icon img[data-icon="sun"],
+.weather-block .weather-icon img[data-icon="snowflake"]
+{
+    animation: spin 2.5s linear infinite;
+}
+
+.weather-block .weather-icon img:not( [data-icon="sun"] ):not( [data-icon="snowflake"] )
+{
+    animation: float 2s linear infinite;
+}
+
+/**
+    # animations
+*/
+@keyframes sunshine
+{
+    0%, 100%
+    {
+        box-shadow: 0 0 40px 0 rgba( 255, 247, 0, .7 ),
+                    0 0 20px 0 rgba( 255, 247, 0, .5 );
+    }
+
+    50%
+    {
+        box-shadow: 0 2px 80px 0 rgba( 255, 247, 0, .7 ),
+                    0 4px 40px 0 rgba( 255, 247, 0, .7 );
+    }
+}
+
+
+@keyframes stars
+{
+    0%, 100%
+    {
+        opacity: 1;
+    }
+
+    50%
+    {
+        opacity: 0;
+    }
+}
+
+@keyframes snow
+{
+    0%, 100%
+    {
+        background-size: 100%;
+        opacity: .3;
+        filter: blur( 2px );
+    }
+
+    50%
+    {
+        background-size: 100%;
+        opacity: .8;
+    }
+}
+
+@keyframes spin
+{
+    from { transform: rotate( 0 ); }
+    to { transform: rotate( 360deg ); }
+}
+
+@keyframes float
+{
+    0%, 100% 
+    { 
+        transform:  translateX( 0 ) scale( 1 );
+    }
+
+    50%
+    { 
+        transform: translateY( -5px ) scale( 1.05 );
+    }
+}
