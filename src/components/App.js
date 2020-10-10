@@ -10,9 +10,9 @@ function App()
 	const [ locationsWeather, setLocationsWeather ] = useState([]);
 	const [ cities, setCities ] = useState([]);
 
-	const apiKey = '37e4b58aa33a77384c7d5033f80c7ad2';
+	const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
 
-
+	
 	// search & add location by name
 	function addLocation( location )
 	{
