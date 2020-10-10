@@ -6,6 +6,7 @@ Design inspired from this Dribbble shot by kenzch:
 
 https://dribbble.com/shots/7112686-Weather-kit
 
+![Preview](img/weather-around-the-world.jpeg "Preview")
 
 ## Installation:
 
