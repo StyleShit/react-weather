@@ -9,7 +9,7 @@ export default function Search({ search, autocomplete })
     const [ autocompleteItems, setAutocompleteItems ] = useState( [] );
     const [ currentItem, setCurrentItem ] = useState( -1 );
 
-    
+
     // catch arrow keys on search input for autocomplete navigation
     function onKeyUp( e )
     {
@@ -97,7 +97,7 @@ export default function Search({ search, autocomplete })
     }
 
 
-    // shoe autocomplete when search term has changed
+    // show autocomplete when search term has changed
     useEffect( () => {
 
         const timeout = setTimeout( showAutoComplete, 300 );
