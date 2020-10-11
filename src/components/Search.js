@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './css/Search.css';
 
 export default function Search({ search, autocomplete })
@@ -9,17 +9,13 @@ export default function Search({ search, autocomplete })
     const [ autocompleteItems, setAutocompleteItems ] = useState( [] );
     const [ currentItem, setCurrentItem ] = useState( -1 );
 
-    function submitForm( e )
-    {
-        e.preventDefault();
-    }
-
-
+    
+    // catch arrow keys on search input for autocomplete navigation
     function onKeyUp( e )
     {
         switch( e.keyCode || e.which )
         {
-            // up arrow
+            // up arrow -> previous item
             case 38:
                 if( currentItem > 0 )
                     setCurrentItem( prev => prev - 1 );
@@ -29,38 +25,38 @@ export default function Search({ search, autocomplete })
 
                 break;
 
-            // down arrow
+
+            // down arrow -> next item
             case 40:
                 if( currentItem < autocompleteItems.length -1 )
                     setCurrentItem( prev => prev + 1 );
                 else
-                    setCurrentItem( 0 );
+                    setCurrentItem( -1 );
                 break;
 
-            // enter
+
+            // enter -> set term to selected item
             case 13:
                 if( currentItem !== -1 )
-                    setTerm( autocompleteItems[currentItem] );
+                    search( autocompleteItems[currentItem] );
 
                 else
-                {
                     search( term );
-                    setTerm( '' );
-                }
+                
+                setTerm( '' );
 
                 setAutocompleteItems([]);
                 setCurrentItem( -1 );
 
                 break;
 
-            // search
             default:
-                showAutocomplete( e );
                 break;
         }
     }
 
 
+    // catch TAB on search input for autocompletion
     function onKeyDown( e )
     {
         // tab
@@ -72,9 +68,10 @@ export default function Search({ search, autocomplete })
     }
 
 
-    function showAutocomplete( e )
+    // show autocmplete suggestions for the current `term`
+    function showAutoComplete()
     {
-        var searchTerm = e.target.value.trim().toLowerCase();
+        var searchTerm = term.toLowerCase().trim();
 
         if( searchTerm === '' )
         {
@@ -100,9 +97,21 @@ export default function Search({ search, autocomplete })
     }
 
 
+    // shoe autocomplete when search term has changed
+    useEffect( () => {
+
+        const timeout = setTimeout( showAutoComplete, 300 );
+
+        return() => {
+            clearTimeout( timeout );
+        }
+        // eslint-disable-next-line
+    }, [ term ]);
+
+
     return (
         <div className="search-container">
-            <form onSubmit={ submitForm }>
+            <form onSubmit={ e => e.preventDefault() }>
                 <input ref={ searchInput } type="text" placeholder="Type a location and press Enter" value={ term } 
                     onChange={ ( e ) => { setTerm( e.target.value ) } } 
                     onKeyUp={ onKeyUp }
