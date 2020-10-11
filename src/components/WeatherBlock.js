@@ -63,7 +63,7 @@ export default function WeatherBlock({ data, remove })
 
         <div className={ `weather-block ${ cssClass }` }>
 
-            <span class="remove-weather-block" onClick={ () => { remove( data.id ) } }></span>
+            <span className="remove-weather-block" onClick={ () => { remove( data.id ) } }></span>
 
             <div className="temperature">
                 { temp }
