@@ -1,29 +1,22 @@
 import React, { useEffect, useRef } from 'react';
 import './css/Toast.css';
 
-export default function Toast({ type, msg }) 
-{
-    const toastElement = useRef();
+export default function Toast( { type, text } ) {
+	const toastElement = useRef();
 
-    useEffect(() => {
+	useEffect( () => {
+		const timeout = setTimeout( () => {
+			toastElement.current.remove();
+		}, 5000 );
 
-        var timeout = setTimeout( () => {
+		return () => {
+			clearTimeout( timeout );
+		};
+	}, [ type ] );
 
-            toastElement.current.remove()
-
-        }, 5000 );
-
-
-        return () => {
-            
-            clearTimeout( timeout );
-
-        }
-    }, [ type ]);
-    
-    return (
-        <div ref={ toastElement } className={ `toast toast-${ type }` }>
-            { msg }
-        </div>
-    )
+	return (
+		<div ref={ toastElement } className={ `toast toast-${ type }` }>
+			{ text }
+		</div>
+	);
 }
