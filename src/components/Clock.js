@@ -1,47 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useClock } from '../hooks/useClock';
 import './css/Clock.css';
 
 export default function Clock( { offset } ) {
-	// handle current time
-	const [ currentTime, serCurrentTime ] = useState( getUtcDate( offset ) );
+	const currentTime = useClock( offset );
 
-	// set & destroy clock interval
-	useEffect( function() {
-		serCurrentTime( new Date( getUtcDate( offset ) ) );
-
-		const clockInterval = setInterval( () => {
-			serCurrentTime( new Date( getUtcDate( offset ) ) );
-		}, 1000 );
-
-		return () => {
-			clearInterval( clockInterval );
-		};
-	}, [ offset ] );
-
-	// get current UTC time as date object
-	function getUtcDate( utcOffset ) {
-		const now = new Date();
-		const utcTime = now.getTime() + ( now.getTimezoneOffset() * 60000 );
-
-		return new Date( utcTime + ( utcOffset * 1000 ) );
-	}
-
-	// add zero at the beginning of number if it's lower than 10
-	function addZero( num ) {
-		if ( num < 10 )
-			return '0' + num;
-
-		return num;
-	}
+	const hours = currentTime.getHours().toString().padStart( 2, '0' );
+	const minutes = currentTime.getMinutes().toString().padStart( 2, '0' );
+	const seconds = currentTime.getSeconds().toString().padStart( 2, '0' );
 
 	return (
 		<div className="clock-container">
-			{
-				addZero( currentTime.getHours() ) + ':' +
-                addZero( currentTime.getMinutes() )
-                // + ':' +
-                // addZero( currentTime.getSeconds() )
-			}
+			{ hours }:{ minutes }:{seconds}
 		</div>
 	);
 }
