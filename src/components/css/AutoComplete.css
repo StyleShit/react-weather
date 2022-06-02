@@ -1,10 +1,10 @@
-.search-container
+.autocomplete-container
 {
     text-align: center;
     position: relative;
 }
 
-.search-container input
+.autocomplete-container input
 {
     background-color: rgba( 255,255,255,.5 );
     border: none;
@@ -21,13 +21,13 @@
     transition: .3s;
 }
 
-.search-container input:focus
+.autocomplete-container input:focus
 {
     background-color: rgba( 255,255,255,.6 );
     box-shadow: 0 0 30px -10px rgba( 0,0,0,.3 );
 }
 
-.autocomplete-container
+.autocomplete-items-container
 {
     position: absolute;
     width: 90%;
@@ -40,7 +40,7 @@
     overflow-y: auto;
 }
 
-.autocomplete-container .autocomplete-item
+.autocomplete-items-container .autocomplete-item
 {
     display: block;
     border-bottom: 1px dotted #333;
@@ -51,7 +51,7 @@
     transition: .3s;
 }
 
-.autocomplete-container .autocomplete-item:hover, .autocomplete-container .autocomplete-item.current-item
+.autocomplete-items-container .autocomplete-item:where( :hover, .current-item )
 {
     background-color: rgba( 255,255,255,.9 );
     color: #39f;
