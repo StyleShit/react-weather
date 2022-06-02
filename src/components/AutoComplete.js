@@ -59,13 +59,13 @@ export default function AutoComplete( props ) {
 		}
 	};
 
-	function onKeyDown( e ) {
+	const onKeyDown = ( e ) => {
 		// Tab
 		if ( e.keyCode === 9 ) {
 			e.preventDefault();
 			setTerm( autocompleteItems[ currentItemId ] );
 		}
-	}
+	};
 
 	const onSelect = ( item ) => {
 		setTerm( '' );

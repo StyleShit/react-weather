@@ -37,7 +37,7 @@ const Clock = {
 
 Clock.start();
 
-export function getUtcTime( timezoneOffset = 0 ) {
+function getUtcTime( timezoneOffset = 0 ) {
 	const now = new Date();
 	const utcTime = now.getTime() + ( now.getTimezoneOffset() * 60000 );
 
