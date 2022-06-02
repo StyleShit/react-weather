@@ -18,7 +18,7 @@ export const useWeather = () => {
 			locationId: data.id,
 			locationName: data.name,
 		};
-	}, [] );
+	}, [ weather ] );
 
 	const removeLocation = useCallback( ( locationId ) => {
 		setWeather( ( prev ) => {
@@ -31,8 +31,8 @@ export const useWeather = () => {
 	}, [] );
 
 	const locationExists = useCallback( ( locationId ) => {
-		return Object.keys( weather ).includes( locationId );
-	}, [] );
+		return locationId in weather;
+	}, [ weather ] );
 
 	const refetch = useCallback( async () => {
 		const newData = await Promise.all(
