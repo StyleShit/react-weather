@@ -1,64 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Clock from './Clock';
 import './css/WeatherBlock.css';
 
-const iconsMap = {
-	'01d': 'sun',
-	'01n': 'bright-moon',
+export default function WeatherBlock( { data, onClose = () => {} } ) {
+	const iconCode = data.weather[ 0 ].icon;
 
-	'02d': 'partly-cloudy-day',
-	'02n': 'night',
-
-	'03d': 'cloud',
-	'03n': 'cloud',
-
-	'04d': 'skydrive',
-	'04n': 'skydrive',
-
-	'09d': 'torrential-rain',
-	'09n': 'torrential-rain',
-
-	'10d': 'partly-cloudy-rain',
-	'10n': 'light-rain',
-
-	'11d': 'cloud-lighting',
-	'11n': 'cloud-lighting',
-
-	'13d': 'snowflake',
-	'13n': 'snowflake',
-
-	'50d': 'wind',
-	'50n': 'wind',
-};
-
-export default function WeatherBlock( { data, remove } ) {
-	const [ cssClass, setCssClass ] = useState( '' );
-	const [ locationName, setLocationName ] = useState( '' );
-	const [ icon, setIcon ] = useState( '' );
-	const [ temp, setTemp ] = useState( '' );
-
-	useEffect( () => {
-		setIcon( iconsMap[ data.weather[ 0 ].icon ] );
-		setTemp( Math.floor( data.main.temp ) );
-
-		// day / night
-		setCssClass( data.weather[ 0 ].icon.includes( 'd' ) ? 'day' : 'night' );
-		setCssClass( ( prev ) => data.weather[ 0 ].icon.includes( '13' ) ? 'snow' : prev );
-
-		if ( data.sys.country )
-			setLocationName( data.name + ', ' + data.sys.country );
-
-		else
-			setLocationName( data.name );
-	}, [ data ] );
+	const icon = iconsMap[ iconCode ];
+	const temp = Math.floor( data.main.temp );
+	const locationName = [ data.name, data.sys.country ].filter( Boolean ).join( ', ' );
+	const className = getClassName( iconCode );
 
 	return (
 
-		<div className={ `weather-block ${ cssClass }` }>
+		<div className={ `weather-block ${ className }` }>
 
-			<span className="remove-weather-block" onClick={ () => {
-				remove( data.id );
-			} }></span>
+			<span className="remove-weather-block" onClick={ () => onClose( data.id ) }></span>
 
 			<div className="temperature">
 				{ temp }
@@ -97,3 +53,40 @@ export default function WeatherBlock( { data, remove } ) {
 		</div>
 	);
 }
+
+function getClassName( iconCode ) {
+	if ( iconCode.includes( '13' ) ) {
+		return 'snow';
+	}
+
+	return iconCode.includes( 'd' ) ? 'day' : 'night';
+}
+
+const iconsMap = {
+	'01d': 'sun',
+	'01n': 'bright-moon',
+
+	'02d': 'partly-cloudy-day',
+	'02n': 'night',
+
+	'03d': 'cloud',
+	'03n': 'cloud',
+
+	'04d': 'skydrive',
+	'04n': 'skydrive',
+
+	'09d': 'torrential-rain',
+	'09n': 'torrential-rain',
+
+	'10d': 'partly-cloudy-rain',
+	'10n': 'light-rain',
+
+	'11d': 'cloud-lighting',
+	'11n': 'cloud-lighting',
+
+	'13d': 'snowflake',
+	'13n': 'snowflake',
+
+	'50d': 'wind',
+	'50n': 'wind',
+};

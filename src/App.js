@@ -62,7 +62,11 @@ function App() {
 				<Search onSelect={ onSelect } options={ cities } />
 				{
 					Object.values( weather ).map( ( locationData ) => (
-						<WeatherBlock remove={ removeLocation } key={ locationData.id } data={ locationData } />
+						<WeatherBlock
+							key={ locationData.id }
+							data={ locationData }
+							onClose={ () => removeLocation( locationData.id ) }
+						/>
 					) )
 				}
 
