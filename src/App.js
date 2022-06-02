@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useWeather } from './hooks/useWeather';
 import { useToasts } from './hooks/useToasts';
 import WeatherBlock from './components/WeatherBlock';
-import Search from './components/Search';
+import AutoComplete from './components/AutoComplete';
 import Toast from './components/Toast';
 import './App.css';
 
@@ -59,7 +59,7 @@ function App() {
 					Weather Around the World
 				</h1>
 
-				<Search onSelect={ onSelect } options={ cities } />
+				<AutoComplete items={ cities } onSelect={ onSelect } />
 				{
 					Object.values( weather ).map( ( locationData ) => (
 						<WeatherBlock
